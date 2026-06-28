@@ -28,7 +28,7 @@ def main():
     load_css(os.path.join(os.getcwd(), "static", "style.css"))
     inject_local_font(os.path.join(os.getcwd(), "static", "AdobeClean.otf"), "AdobeClean")
 
-    init_db()
+    # init_db()
 
     if not render_login_wall():
         return 
