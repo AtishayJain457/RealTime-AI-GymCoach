@@ -28,7 +28,7 @@ def main():
     load_css(os.path.join(os.getcwd(), "static", "style.css"))
     inject_local_font(os.path.join(os.getcwd(), "static", "AdobeClean.otf"), "AdobeClean")
 
-    init_db()
+    # init_db()
 
     if not render_login_wall():
         return 
@@ -201,7 +201,8 @@ def main():
             key="exercise-analysis",
             mode=WebRtcMode.SENDRECV,
             video_processor_factory=VideoProcessorClass,
-            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+            # ⚡ REQUIRED FOR CLOUD DEPLOYMENT: Tells the cloud network how to route the webcam frames
+            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}, 
             media_stream_constraints={
                 "video": True,
                 "audio": False
