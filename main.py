@@ -201,8 +201,13 @@ def main():
             key="exercise-analysis",
             mode=WebRtcMode.SENDRECV,
             video_processor_factory=VideoProcessorClass,
-            # ⚡ REQUIRED FOR CLOUD DEPLOYMENT: Tells the cloud network how to route the webcam frames
-            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}, 
+            # ⚡ GLOBAL CLOUD FIX: Combines open Google STUN with safe global Twilio infrastructure
+            rtc_configuration={
+                "iceServers": [
+                    {"urls": ["stun:stun.l.google.com:19302"]},
+                    {"urls": ["stun:global.stun.twilio.com:3478"]}
+                ]
+            }, 
             media_stream_constraints={
                 "video": True,
                 "audio": False
