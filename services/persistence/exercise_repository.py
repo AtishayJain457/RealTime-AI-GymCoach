@@ -1,8 +1,11 @@
 import sqlite3
+import os
+import tempfile
 import streamlit as st
-from pathlib import Path
 
-_DB_PATH = str(Path(__file__).parent.parent.parent / "data.db")
+
+# ⚡ FIX: Use the OS temporary directory to guarantee read/write permissions on Streamlit Cloud
+_DB_PATH = os.path.join(tempfile.gettempdir(), "realtime_gym_coach_data.db")
 
 
 @st.cache_resource
@@ -72,9 +75,12 @@ def add_exercise(user_id, exercise_name, reps, sets, time):
     conn = _get_connection()
 
     with conn:
+        # ⚡ OPTIMIZATION: Fixed SQLite date handling matching logic
         existing = conn.execute("""
             SELECT * FROM exercises 
-            WHERE user_id = ? AND exercise_name = ? AND Date('created_at') = Date('now')
+            WHERE user_id = ? 
+              AND exercise_name = ? 
+              AND date(created_at) = date('now')
         """, (user_id, exercise_name)).fetchone()
 
         if existing:
