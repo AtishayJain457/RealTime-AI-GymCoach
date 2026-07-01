@@ -28,7 +28,7 @@ def main():
     load_css(os.path.join(os.getcwd(), "static", "style.css"))
     inject_local_font(os.path.join(os.getcwd(), "static", "AdobeClean.otf"), "AdobeClean")
 
-    # init_db()
+    init_db()
 
     if not render_login_wall():
         return 
@@ -205,7 +205,7 @@ def main():
             rtc_configuration={
                 "iceServers": [
                     {"urls": ["stun:stun.l.google.com:19302"]},
-                    {"urls": ["stun:global.stun.twilio.com:3478"]}
+                    
                 ]
             }, 
             media_stream_constraints={
